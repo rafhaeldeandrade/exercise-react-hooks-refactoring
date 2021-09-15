@@ -1,29 +1,28 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import GameCell from './GameCell';
+import TicTacToeContext from './context/TicTacToeContext';
 import './GameBoard.css';
 
-class GameBoard extends React.Component {
-  render() {
-    const { gameState, updateGame } = this.props;
-    return (
-      <div className="game-board">
-        {gameState.map((playerId, i) => (
-          <GameCell
-            id={i}
-            key={i}
-            onClick={() => updateGame(i)}
-            content={playerId}
-          />
-        ))}
-      </div>
-    );
-  }
+const GameBoard = () => {
+  const { gameBoard } = useContext(TicTacToeContext);
+
+  return (
+    <div className="game-board">
+      {gameBoard.map((playerId, i) => (
+        <GameCell
+          id={i}
+          key={i}
+          content={playerId}
+        />
+      )
+      )}
+    </div>
+  );
 }
 
 GameBoard.propTypes = {
-  gameState: PropTypes.arrayOf(PropTypes.number).isRequired,
-  updateGame: PropTypes.func.isRequired,
+  gameBoard: PropTypes.arrayOf(PropTypes.number).isRequired,
 };
 
 export default GameBoard;
